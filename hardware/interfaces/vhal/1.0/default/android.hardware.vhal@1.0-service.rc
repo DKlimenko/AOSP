@@ -1,0 +1,5 @@
+service vendor.vr-1-0 /vendor/bin/hw/android.hardware.vhal@1.0-service
+    interface android.hardware.vhal@1.0::IVhal default
+    class hal
+    user system
+    group system
