@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2020 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,46 +14,25 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "VrService"
-
-#include <log/log.h>
-
-#include <hardware/hardware.h>
-
 #include "Vhal.h"
 
+namespace aidl {
 namespace android {
 namespace hardware {
-namespace vr {
-namespace V1_0 {
-namespace implementation {
+namespace vhalcustom {
 
-Vr::Vr() : {}
+// Methods from ::android::hardware::weaver::IWeaver follow.
 
-// Methods from ::android::hardware::vr::V1_0::IVr follow.
-Return<void> Vr::init() {
-    return Void();
+::ndk::ScopedAStatus Vhal::init() {
+    return ::ndk::ScopedAStatus::ok();
 }
 
-Return<void> Vr::setVrMode(bool enabled)  {
-    return Void();
+::ndk::ScopedAStatus Vhal::setMode(uint32_t mode) {
+    (void)mode;
+    return ::ndk::ScopedAStatus::ok();
 }
 
-IVr* HIDL_FETCH_IVhal(const char * /*name*/) {
-    const hw_module_t *hw_module = NULL;
-
-    int ret = hw_get_module(VR_HARDWARE_MODULE_ID, &hw_module);
-    if (ret == 0) {
-        return new Vhal(reinterpret_cast<vr_module_t*>(
-                const_cast<hw_module_t*>(hw_module)));
-    } else {
-        ALOGE("hw_get_module %s failed: %d", VR_HARDWARE_MODULE_ID, ret);
-        return nullptr;
-    }
-}
-
-} // namespace implementation
-}  // namespace V1_0
-}  // namespace vr
-}  // namespace hardware
-}  // namespace android
+} //namespace vhalcustom
+} //namespace hardware
+} //namespace android
+} //namespace aidl

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2020 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,35 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef ANDROID_HARDWARE_VR_V1_0_VR_H
-#define ANDROID_HARDWARE_VR_V1_0_VR_H
 
-#include <android/hardware/vr/1.0/IVr.h>
-#include <hidl/MQDescriptor.h>
+#pragma once
 
+#include <aidl/android/hardware/vhal/BnVhal.h>
+
+namespace aidl {
 namespace android {
 namespace hardware {
-namespace vr {
-namespace V1_0 {
-namespace implementation {
+namespace vhalcustom {
 
+struct Vhal : public BnVhal {
+public:
+    Vhal() = default;
 
-struct Vhal: public IVhal {
-    Vhal();
-
-    // Methods from ::android::hardware::vr::V1_0::IVr follow.
-    Return<void> init()  override;
-    Return<void> setVrMode(bool enabled)  override;
-
-  private:
+    // Methods from ::android::hardware::weaver::IWeaver follow.
+    ::ndk::ScopedAStatus init() override;
+    ::ndk::ScopedAStatus setMode(uint32_t mode) override;
 };
 
-extern "C" IVhal* HIDL_FETCH_IVr(const char* name);
-
-}  // namespace implementation
-}  // namespace V1_0
-}  // namespace vr
+}  // namespace weaver
 }  // namespace hardware
 }  // namespace android
-
-#endif  // ANDROID_HARDWARE_VR_V1_0_VR_H
+}  // namespace aidl

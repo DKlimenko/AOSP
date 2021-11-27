@@ -1,0 +1,25 @@
+From 3ac1bf7266445c15dd9cc87665ed6272aee3a75b Mon Sep 17 00:00:00 2001
+From: DK <kldimakl@gmail.com>
+Date: Fri, 26 Nov 2021 11:43:17 +0200
+Subject: [PATCH] Change userdata size
+
+---
+ device/generic/goldfish/emulator64_x86_64/BoardConfig.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/device/generic/goldfish/emulator64_x86_64/BoardConfig.mk b/device/generic/goldfish/emulator64_x86_64/BoardConfig.mk
+index fcb97ea..c192b95 100755
+--- a/device/generic/goldfish/emulator64_x86_64/BoardConfig.mk
++++ b/device/generic/goldfish/emulator64_x86_64/BoardConfig.mk
+@@ -25,7 +25,7 @@ TARGET_PRELINK_MODULE := false
+ include build/make/target/board/BoardConfigGsiCommon.mk
+ include build/make/target/board/BoardConfigEmuCommon.mk
+ 
+-BOARD_USERDATAIMAGE_PARTITION_SIZE := 576716800
++BOARD_USERDATAIMAGE_PARTITION_SIZE := 1576716800
+ 
+ BOARD_SEPOLICY_DIRS += device/generic/goldfish/sepolicy/x86
+ 
+-- 
+2.25.1
+

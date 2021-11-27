@@ -1,10 +1,10 @@
 // IRemoteService.aidl
-package android.hardware.vhal@1.0;
+package android.hardware.vhalcustom;
 
 // Declare any non-default types here with import statements
 
 /** Example service interface */
-interface IRemoteService {
+interface IVhal {
     /** Request the process init*/
     void init();
 

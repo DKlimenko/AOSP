@@ -10,7 +10,8 @@ package {
 }
 
 aidl_interface {
-    name: "vhal",
+    name: "android.hardware.vhalcustom",
+    vendor_available: true,
     versions: ["1"],
     stability: "vintf",
     srcs: ["IVhal.aidl"],

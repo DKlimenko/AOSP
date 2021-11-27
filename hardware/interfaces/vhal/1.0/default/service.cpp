@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2020 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#define LOG_TAG "android.hardware.vhal@1.0-service"
 
-#include <android/hardware/vhal/1.0/IVhal.h>
-#include <hidl/LegacySupport.h>
+#include <android-base/logging.h>
+#include <android/binder_manager.h>
+#include <android/binder_process.h>
 
-// Generated HIDL files
-using android::hardware::vhal::V1_0::IVhal;
-using android::hardware::defaultPassthroughServiceImplementation;
+#include "Vhal.h"
+
+using ::aidl::android::hardware::vhalcustom;
 
 int main() {
-    return defaultPassthroughServiceImplementation<IVhal>();
+    ABinderProcess_setThreadPoolMaxThreadCount(0);
+    std::shared_ptr<Vhal> vhal = ndk::SharedRefBase::make<Vhal>();
+
+    const std::string instance = std::string() + Vhal::descriptor + "/default";
+    binder_status_t status = AServiceManager_addService(vhal->asBinder().get(), instance.c_str());
+    CHECK(status == STATUS_OK);
+
+    ABinderProcess_joinThreadPool();
+    return -1; // Should never be reached
 }
